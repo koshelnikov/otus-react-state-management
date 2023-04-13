@@ -29,7 +29,7 @@ export class UserService {
             user.role = role;
 
             if (role === 'user') {
-                //delete user.eventsAmount
+                delete user.eventsAmount
             }
         });
     }

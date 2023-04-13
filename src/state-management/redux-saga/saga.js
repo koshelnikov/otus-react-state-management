@@ -1,4 +1,4 @@
-import {takeEvery, put, call} from 'redux-saga/effects';
+import {takeEvery, put} from 'redux-saga/effects';
 import {
     LOAD_USERS,
     CHANGE_ROLE,
@@ -17,11 +17,6 @@ function* loadUsersSaga() {
     yield put(loadedUsersAction(users))
 }
 
-function* loadUserSaga(action) {
-    const {id} = action.payload;
-    const user = yield userService.getUserById(id);
-}
-
 function* loadEventsAmountSaga(action) {
     const {id} = action.payload;
     const events = yield eventsService.getEventsAmount(id);
@@ -32,6 +27,7 @@ function* changeRoleSaga(action) {
     const {id, role} = action.payload;
     yield userService.changeRole(id, role);
     const user = yield userService.getUserById(id);
+
     yield put(loadedUserAction(user));
     yield put(loadEventsAmountAction(id));
 }
@@ -39,6 +35,5 @@ function* changeRoleSaga(action) {
 export default function* rootSaga() {
     yield takeEvery(LOAD_USERS, loadUsersSaga)
     yield takeEvery(CHANGE_ROLE, changeRoleSaga)
-    yield takeEvery(LOAD_USER, loadUserSaga)
     yield takeEvery(LOAD_EVENTS_AMOUNT, loadEventsAmountSaga);
 }

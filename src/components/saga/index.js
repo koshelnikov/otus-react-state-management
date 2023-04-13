@@ -1,10 +1,9 @@
-import './App.css';
-import {Main} from "./components/props/main";
+import {Users} from "./users/users";
+import {UserService} from "../../services/user/user.service";
+import {EventsService} from "../../services/events/events.service";
 import {useEffect, useState} from "react";
-import {UserService} from "./services/user/user.service";
-import {EventsService} from "./services/events/events.service";
 
-function App() {
+const SagaIndex = () => {
     const userService = new UserService();
     const messageService = new EventsService();
     const [users, setUsers] = useState([]);
@@ -33,12 +32,18 @@ function App() {
             });
         })
     }
-
-  return (
-      <div>
-        <Main users={users} onUserRoleChanged={onRoleChanged}/>
-      </div>
-  );
+    return (
+        <Users users={users} onRoleChanged={onRoleChanged}/>
+    )
 }
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(reducer, {
+    messages: [],
+    isLoading: false
+}, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(rootSaga);
 
-export default App;
+
+<Provider>
+
+</Provider>

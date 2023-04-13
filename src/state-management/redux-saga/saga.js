@@ -3,7 +3,6 @@ import {
     LOAD_USERS,
     CHANGE_ROLE,
     LOAD_EVENTS_AMOUNT,
-    LOAD_USER,
     loadEventsAmountAction, loadedUsersAction, loadedEventsAmountAction, loadedUserAction
 } from "./actions";
 import {UserService} from "../../services/user/user.service";

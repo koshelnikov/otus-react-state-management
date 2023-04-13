@@ -1,6 +1,5 @@
 export const LOAD_USERS = 'LOAD_USERS';
 export const LOADED_USERS = 'LOADED_USERS';
-export const LOAD_USER = 'LOAD_USER';
 export const LOADED_USER = 'LOADED_USER';
 export const CHANGE_ROLE = 'CHANGE_ROLE';
 export const CHANGED_ROLE = 'CHANGED_ROLE'

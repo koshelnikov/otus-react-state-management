@@ -3,7 +3,7 @@ import {UserService} from "../../services/user/user.service";
 import {EventsService} from "../../services/events/events.service";
 import {useEffect, useState} from "react";
 
-export const PropsIndex = () => {
+const Index = () => {
     const userService = new UserService();
     const messageService = new EventsService();
     const [users, setUsers] = useState([]);
@@ -36,3 +36,5 @@ export const PropsIndex = () => {
         <Users users={users} onRoleChanged={onRoleChanged}/>
     )
 }
+
+export default Index;

@@ -1,6 +1,8 @@
 import './App.css';
 import PropsIndex from "./components/props";
-import SagaIndex from "./components/saga/index";
+import ReactReduxConnectIndex from "./components/react-redux-connect/index";
+import ReactReduxHookIndex from "./components/react-redux-hook/index";
+import ReactSagaIndex from "./components/redux-saga/index";
 import {
     createBrowserRouter,
     RouterProvider,
@@ -12,7 +14,13 @@ const router = createBrowserRouter([
     },
 
     {
-        path: '/redux-saga', element: <SagaIndex/>
+        path: '/redux-saga', element: <ReactSagaIndex/>
+    },
+    {
+        path: '/react-redux-connect', element: <ReactReduxConnectIndex/>
+    },
+    {
+        path: '/react-redux-hook', element: <ReactReduxHookIndex/>
     }
 ])
 
@@ -22,6 +30,11 @@ function App() {
       <div>
           <nav>
               <a href='/'>Props</a>
+              <span> </span>
+              <a href='/react-redux-connect'>React Redux Connect</a>
+              <span> </span>
+              <a href='/react-redux-hook'>React Redux Hook</a>
+              <span> </span>
               <a href='/redux-saga'>Redux Saga</a>
           </nav>
           <RouterProvider router={router}/>

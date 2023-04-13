@@ -1,5 +1,9 @@
+import {useDispatch} from "react-redux";
+import {changeRoleAction} from "../../../state-management/redux-saga/actions";
+
 export const Users = (props) => {
     const isManager = (role) => role === 'manager';
+    const dispatch = useDispatch();
     return (
         <div>
             {
@@ -13,7 +17,7 @@ export const Users = (props) => {
                                    onChange={(e) =>
                                    {
                                        e.preventDefault();
-                                       props.onRoleChanged(user.id, isManager(user.role) ? 'user' : 'manager')
+                                       dispatch(changeRoleAction(user.id, isManager(user.role) ? 'user' : 'manager'))
                                    }}
                             />
                         </label>

@@ -1,49 +1,37 @@
 import {Users} from "./users/users";
-import {UserService} from "../../services/user/user.service";
-import {EventsService} from "../../services/events/events.service";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
+import createSagaMiddleware from "redux-saga";
+import {Provider, useDispatch, useSelector} from "react-redux";
+import {loadUsers} from "../../state-management/redux-saga/actions";
+import rootSaga from "../../state-management/redux-saga/saga";
+import {applyMiddleware, createStore} from "redux";
+import {reducer} from "../../state-management/redux-saga/reducers";
 
-const SagaIndex = () => {
-    const userService = new UserService();
-    const messageService = new EventsService();
-    const [users, setUsers] = useState([]);
+const Index = () => {
 
+    const users = useSelector((store) => store.users);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        userService.getUsers().then(users => setUsers(users))
+        dispatch(loadUsers())
     }, [])
 
-    const onRoleChanged = (id, role) => {
-        userService.changeRole(id, role).then(() => {
-            userService.getUserById(id).then(result => {
-                let user = users.find((user) => user.id === result.id);
-                user.role = result.role;
-
-                if (role === 'manager') {
-                    messageService.getEventsAmount(id)
-                        .then(value => {
-                            user.eventsAmount = value
-                            setUsers([...users]);
-                        })
-                } else {
-                    delete user.eventsAmount;
-                    setUsers([...users]);
-                }
-            });
-        })
-    }
     return (
-        <Users users={users} onRoleChanged={onRoleChanged}/>
+        <Users users={users}/>
     )
 }
+
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(reducer, {
-    messages: [],
-    isLoading: false
-}, applyMiddleware(sagaMiddleware));
+
+
+const store = createStore(
+    reducer,
+    {
+        users: []
+    },
+    applyMiddleware(sagaMiddleware)
+);
+
 sagaMiddleware.run(rootSaga);
 
-
-<Provider>
-
-</Provider>
+export default () => <Provider store={store}><Index/></Provider>
